@@ -6,7 +6,7 @@
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 07:49:42 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/19 07:50:25 by vchakhno         ###   ########.fr       */
+/*   Updated: 2023/10/20 08:01:53 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,41 @@ bool	ft_i32_from_str(t_str str, t_i32 *num)
 	return (true);
 }
 
-bool	parse_nums(t_u32 size, char **strs, t_vector *nums)
+bool	parse_chunk(t_str chunk, t_vector *nums)
 {
-	t_u32	i;
-	t_i32	num;
+	t_str_iter	iter;
+	t_str		word;
+	t_i32		num;
 
-	if (!ft_vector_alloc(nums, sizeof(t_i32), size))
-		return (false);
-	i = 0;
-	while (i < size)
+	iter = ft_str_split_by_c_str(chunk, " ");
+	while (iter.next(&iter, &word))
 	{
-		if (!ft_i32_from_str(ft_str(strs[i]), &num))
+		if (!ft_i32_from_str(word, &num))
 		{
 			ft_vector_free(*nums);
+			ft_oprintln(ft_stderr(),
+				"Parsing error: {str} is not a valid number", word);
 			return (false);
 		}
 		ft_vector_push(nums, &num);
+	}
+	return (true);
+}
+
+bool	parse_nums(t_u32 size, char **strs, t_vector *nums)
+{
+	t_u32	i;
+
+	if (!ft_vector_alloc(nums, sizeof(t_i32), size))
+	{
+		ft_oprintln(ft_stderr(), "Internal error: Not enough memory");
+		return (false);
+	}
+	i = 0;
+	while (i < size)
+	{
+		if (!parse_chunk(ft_str(strs[i]), nums))
+			return (false);
 		i++;
 	}
 	return (true);
