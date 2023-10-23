@@ -1,40 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   allocation.c                                       :+:      :+:    :+:   */
+/*   insertion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/20 06:25:08 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/20 07:55:24 by vchakhno         ###   ########.fr       */
+/*   Created: 2023/10/20 09:49:44 by vchakhno          #+#    #+#             */
+/*   Updated: 2023/10/23 10:04:56 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool	lis_alloc(t_lis_data *data, t_u32 size)
+t_u32	insertion_index(t_array array, t_i32 value)
 {
 	t_u32	i;
 
-	if (!ft_vector_alloc(&data->scores, sizeof(t_i32), size))
-		return (false);
-	if (!ft_vector_alloc(&data->mask, sizeof(bool), size))
-	{
-		ft_vector_free(data->scores);
-		return (false);
-	}
 	i = 0;
-	while (i < size)
+	while (i < array.size)
 	{
-		ft_vector_push(&data->scores, &(t_u32){1});
-		ft_vector_push(&data->mask, &(bool){false});
-		i++;
+		if (value < ((t_i32 *)array.elems)[i])
+			return (i);
 	}
-	return (true);
+	return (0);
 }
 
-void	lis_free(t_lis_data data)
+void	insert_phase1()
 {
-	ft_vector_free(data.scores);
-	ft_vector_free(data.mask);
+	t_u32	i;
+
+	i = 0;
+	while (i < nums.size)
+	{
+		if (!((bool *)data.mask.elems)[i])
+		{
+			push_b();
+		}
+		i++;
+	}
+}
+
+void	insert_phase2()
+{
+	
 }
