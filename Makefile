@@ -13,9 +13,8 @@ SRCS		:= \
 				main.c \
 				parsing.c \
 				positions.c \
-				mask.c
-				# lis/compute.c
-				# lis/allocation.c
+				lis_alloc.c \
+				lis_compute.c
 SRCS		:= $(addprefix $(SRC_DIR)/,$(SRCS))
 
 INCS		:=	include

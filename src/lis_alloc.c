@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   lis_alloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/10 02:23:40 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/29 11:12:37 by vchakhno         ###   ########.fr       */
+/*   Created: 2023/10/29 10:00:54 by vchakhno          #+#    #+#             */
+/*   Updated: 2023/10/29 10:43:35 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "push_swap.h"
+#include <stdlib.h>
 
-# include <stdbool.h>
-# include <libft/libft.h>
-
-bool	parse_nums(t_u32 size, char **strs, t_vector *nums);
-bool	nums_to_pos(t_vector nums, t_vector *pos);
-
-typedef struct s_lis
+bool	lis_alloc(t_lis *lis, t_u32 size)
 {
-	t_u32	*scores;
-	bool	*seq_mask;
-}	t_lis;
+	if (!ft_mem_malloc(&lis->scores, size * sizeof(t_u32)))
+		return (false);
+	if (!ft_mem_malloc(&lis->seq_mask, size * sizeof(bool)))
+	{
+		free(lis->scores);
+		return (false);
+	}
+	return (true);
+}
 
-bool	lis_alloc(t_lis *lis, t_u32 size);
-void	lis_compute(t_lis lis, t_array nums);
-void	lis_free(t_lis lis);
-
-#endif
+void	lis_free(t_lis lis)
+{
+	free(lis.seq_mask);
+	free(lis.scores);
+}
