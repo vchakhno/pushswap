@@ -12,7 +12,7 @@ SRC_DIR		:= src
 SRCS		:= \
 				main.c \
 				parsing.c \
-				positions.c \
+				packed.c \
 				lis_alloc.c \
 				lis_compute.c
 SRCS		:= $(addprefix $(SRC_DIR)/,$(SRCS))

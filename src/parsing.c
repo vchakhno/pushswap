@@ -6,7 +6,7 @@
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 07:49:42 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/20 08:01:53 by vchakhno         ###   ########.fr       */
+/*   Updated: 2023/10/29 11:21:06 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,11 @@ bool	parse_chunk(t_str chunk, t_vector *nums)
 				"Parsing error: {str} is not a valid number", word);
 			return (false);
 		}
-		ft_vector_push(nums, &num);
+		if (!ft_vector_push(nums, &num))
+		{
+			ft_oprintln(ft_stderr(), "Internal error: Not enough memory");
+			return (false);
+		}
 	}
 	return (true);
 }
