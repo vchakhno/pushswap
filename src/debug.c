@@ -6,21 +6,32 @@
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 13:06:44 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/29 17:26:43 by vchakhno         ###   ########.fr       */
+/*   Updated: 2023/10/29 23:23:03 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool	print_u32_elem(t_u32 *elem, t_output *output)
+void	rstack_print(t_rstack stack, char *name)
 {
-	return (ft_u32_oprint(*elem, output));
+	t_u32	i;
+
+	ft_oprintf(ft_stderr(), "Stack {c_str} (offset: {u32}) [",
+		name, stack.offset);
+	i = 0;
+	while (i < stack.size)
+	{
+		ft_u32_oprint(stack.elems[(stack.top + i) % stack.capacity],
+			ft_stderr());
+		if (i != stack.size - 1)
+			ft_oprintf(ft_stderr(), ", ");
+		i++;
+	}
+	ft_oprintln(ft_stderr(), "]");
 }
 
 void	solver_print(t_solver solver)
 {
-	ft_oprintf(ft_stderr(), "Stack A (offset: {u32}): ", solver.a.offset);
-	ft_array_oprintln(solver.a.vec.array, ft_stderr(), print_u32_elem, NULL);
-	ft_oprintf(ft_stderr(), "Stack B (offset: {u32}): ", solver.b.offset);
-	ft_array_oprintln(solver.b.vec.array, ft_stderr(), print_u32_elem, NULL);
+	rstack_print(solver.a, "A");
+	rstack_print(solver.b, "B");
 }

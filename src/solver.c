@@ -6,7 +6,7 @@
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 11:50:32 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/29 17:43:46 by vchakhno         ###   ########.fr       */
+/*   Updated: 2023/10/29 23:26:17 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,13 @@ bool	solver_alloc(t_solver *solver, t_u32 size)
 
 void	solver_init_stacks(t_solver *solver, t_array nums)
 {
-	t_u32	i;
-
-	solver->a.vec.size = nums.size;
+	solver->a.size = nums.size;
+	solver->a.top = 0;
 	solver->a.offset = 0;
-	solver->b.vec.size = 0;
+	ft_mem_copy(solver->a.elems, nums.elems, nums.size * sizeof(t_u32));
+	solver->b.size = 0;
+	solver->b.top = 0;
 	solver->b.offset = 0;
-	i = 0;
-	while (i < nums.size)
-	{
-		(*(t_u32 **)&solver->a)[i] = \
-			((t_u32 *)nums.elems)[nums.size - 1 - i];
-		i++;
-	}
 }
 
 void	solver_push_b(t_solver *solver, t_array nums)
@@ -63,7 +57,7 @@ void	solver_push_b(t_solver *solver, t_array nums)
 		else
 		{
 			ft_println("pb");
-			rstack_push(&solver->a, &solver->b);
+			rstack_push(&solver->b, rstack_pop(&solver->a));
 		}
 		i++;
 	}
@@ -75,16 +69,17 @@ void	solver_push_a(t_solver *solver)
 	t_u32	tmp;
 	t_u32	i;
 
-	while (solver->b.vec.size)
+	while (solver->b.size)
 	{
-		ft_vector_pop(&solver->b.vec, &tmp);
+		tmp = rstack_pop(&solver->b);
 		stack_insert(&solver->a, tmp);
+		ft_oprintln(ft_stderr(), "---");
+		solver_print(*solver);
 	}
-	solver_print(*solver);
 	i = 0;
-	if (solver->a.offset < solver->a.vec.size / 2)
+	if (solver->a.offset < solver->a.size / 2)
 	{
-		while (i < solver->a.offset)
+		while (solver->a.offset)
 		{
 			ft_println("ra");
 			rstack_rotate(&solver->a);
@@ -93,7 +88,7 @@ void	solver_push_a(t_solver *solver)
 	}
 	else
 	{
-		while (i < solver->a.vec.size - solver->a.offset)
+		while (solver->a.offset)
 		{
 			ft_println("rra");
 			rstack_rrotate(&solver->a);

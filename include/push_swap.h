@@ -6,7 +6,7 @@
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 02:23:40 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/29 17:25:32 by vchakhno         ###   ########.fr       */
+/*   Updated: 2023/10/29 22:30:47 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ void	lis_free(t_lis lis);
 
 typedef struct s_rstack
 {
-	t_vector	vec;
+	t_u32		*elems;
+	t_u32		size;
+	t_u32		capacity;
+	t_u32		top;
 	t_u32		offset;
 }	t_rstack;
 
@@ -49,12 +52,13 @@ void	solver_free(t_solver solver);
 
 void	solver_print(t_solver solver);
 
-bool	rstack_alloc(t_rstack *stack, t_u32 size);
+bool	rstack_alloc(t_rstack *stack, t_u32 capacity);
 void	rstack_free(t_rstack stack);
 
 void	rstack_rotate(t_rstack *stack);
 void	rstack_rrotate(t_rstack *stack);
-void	rstack_push(t_rstack *src, t_rstack *dst);
+void	rstack_push(t_rstack *stack, t_u32 value);
+t_u32	rstack_pop(t_rstack *stack);
 
 void	stack_insert(t_rstack *stack, t_u32 value);
 
