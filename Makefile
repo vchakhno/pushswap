@@ -14,7 +14,11 @@ SRCS		:= \
 				parsing.c \
 				packed.c \
 				lis_alloc.c \
-				lis_compute.c
+				lis_compute.c \
+				solver.c \
+				insertion.c \
+				stack.c \
+				debug.c
 SRCS		:= $(addprefix $(SRC_DIR)/,$(SRCS))
 
 INCS		:=	include
