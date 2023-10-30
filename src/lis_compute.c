@@ -6,7 +6,7 @@
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 10:00:54 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/29 10:53:27 by vchakhno         ###   ########.fr       */
+/*   Updated: 2023/10/30 10:48:38 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ void	lis_compute_mask(t_lis lis, t_array nums, t_u32 seq_last)
 	}
 	seq_first = seq_last;
 	i = seq_last;
-	lis.seq_mask[i] = true;
+	lis.seq_mask[((t_u32 *)nums.elems)[i]] = true;
 	while (i > 0)
 	{
 		i--;
 		if (lis.scores[i] == lis.scores[seq_first] - 1
 			&& ((t_u32 *)nums.elems)[i] < ((t_u32 *)nums.elems)[seq_first])
 		{
-			lis.seq_mask[i] = true;
+			lis.seq_mask[((t_u32 *)nums.elems)[i]] = true;
 			seq_first = i;
 		}
 	}

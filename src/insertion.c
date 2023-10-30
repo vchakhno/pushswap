@@ -6,25 +6,18 @@
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 09:49:44 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/30 05:01:55 by vchakhno         ###   ########.fr       */
+/*   Updated: 2023/10/30 10:17:23 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_u32	rstack_get_cyclic(t_rstack stack, t_i32 i)
-{
-	return (
-		stack.elems[
-			(stack.top + (stack.offset + i) % stack.size) % stack.capacity
-		]
-	);
-}
-
 t_u32	insert_index(t_rstack stack, t_u32 value)
 {
 	t_u32	i;
 
+	if (stack.size == 0)
+		return (0);
 	i = 0;
 	while (i < stack.size && rstack_get_cyclic(stack, i) < value)
 		i++;
@@ -184,7 +177,6 @@ void	do_insertion(t_rstack *dst, t_rstack *src, t_insertion insert)
 		do_insertion_ra_rrb(dst, src, insert);
 	else if (insert.type == INSERT_RRA_RB)
 		do_insertion_rra_rb(dst, src, insert);
-	rstack_push(dst, rstack_pop(src));
 }
 
 void	stack_insert(t_rstack *stack, t_u32 value)

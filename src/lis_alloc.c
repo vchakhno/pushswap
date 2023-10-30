@@ -6,7 +6,7 @@
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 10:00:54 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/29 10:43:35 by vchakhno         ###   ########.fr       */
+/*   Updated: 2023/10/30 10:51:15 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ bool	lis_alloc(t_lis *lis, t_u32 size)
 		free(lis->scores);
 		return (false);
 	}
+	lis->size = size;
 	return (true);
 }
 

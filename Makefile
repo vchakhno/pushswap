@@ -18,7 +18,10 @@ SRCS		:= \
 				solver.c \
 				insertion.c \
 				stack.c \
-				debug.c
+				debug.c \
+				phases.c \
+				array_validation.c \
+				chunk_insertion.c
 SRCS		:= $(addprefix $(SRC_DIR)/,$(SRCS))
 
 INCS		:=	include

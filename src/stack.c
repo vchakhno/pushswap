@@ -6,7 +6,7 @@
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 09:49:44 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/29 23:25:26 by vchakhno         ###   ########.fr       */
+/*   Updated: 2023/10/30 06:46:20 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,15 @@ t_u32	rstack_pop(t_rstack *stack)
 	stack->top = (stack->top + 1) % stack->capacity;
 	stack->size--;
 	return (tmp);
+}
+
+t_u32	rstack_get_cyclic(t_rstack stack, t_i32 i)
+{
+	return (
+		stack.elems[
+			(stack.top + (stack.offset + i) % stack.size) % stack.capacity
+		]
+	);
 }
 
 void	rstack_free(t_rstack stack)

@@ -6,7 +6,7 @@
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 11:50:32 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/30 05:01:10 by vchakhno         ###   ########.fr       */
+/*   Updated: 2023/10/30 09:49:25 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,64 +41,10 @@ void	solver_init_stacks(t_solver *solver, t_array nums)
 	solver->b.offset = 0;
 }
 
-void	solver_push_b(t_solver *solver, t_array nums)
-{
-	t_u32	i;
-
-	lis_compute(solver->lis, nums);
-	i = 0;
-	while (i < nums.size)
-	{
-		if (solver->lis.seq_mask[i])
-		{
-			ft_println("ra");
-			rstack_rotate(&solver->a);
-		}
-		else
-		{
-			ft_println("pb");
-			rstack_push(&solver->b, rstack_pop(&solver->a));
-		}
-		i++;
-	}
-	solver_print(*solver);
-}
-
-void	solver_push_a(t_solver *solver)
-{
-	t_insertion		best;
-	t_u32			i;
-
-	while (solver->b.size)
-	{
-		best = best_stack_insertion(solver->a, solver->b);
-		do_insertion(&solver->a, &solver->b, best);
-	}
-	solver_print(*solver);
-	i = 0;
-	if (solver->a.offset < solver->a.size / 2)
-	{
-		while (solver->a.offset)
-		{
-			ft_println("ra");
-			rstack_rotate(&solver->a);
-			i++;
-		}
-	}
-	else
-	{
-		while (solver->a.offset)
-		{
-			ft_println("rra");
-			rstack_rrotate(&solver->a);
-			i++;
-		}
-	}
-	solver_print(*solver);
-}
-
 void	solver_run(t_solver solver, t_array nums)
 {
+	if (array_is_sorted(nums))
+		return ;
 	solver_init_stacks(&solver, nums);
 	solver_push_b(&solver, nums);
 	solver_push_a(&solver);

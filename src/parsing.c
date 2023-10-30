@@ -6,7 +6,7 @@
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 07:49:42 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/29 11:21:06 by vchakhno         ###   ########.fr       */
+/*   Updated: 2023/10/30 09:43:38 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,13 @@ bool	parse_chunk(t_str chunk, t_vector *nums)
 	iter = ft_str_split_by_c_str(chunk, " ");
 	while (iter.next(&iter, &word))
 	{
+		if (word.len == 0)
+			continue ;
 		if (!ft_i32_from_str(word, &num))
 		{
 			ft_vector_free(*nums);
 			ft_oprintln(ft_stderr(),
-				"Parsing error: {str} is not a valid number", word);
+				"Parsing error: \"{str}\" is not a valid number", word);
 			return (false);
 		}
 		if (!ft_vector_push(nums, &num))
@@ -90,6 +92,7 @@ bool	parse_chunk(t_str chunk, t_vector *nums)
 bool	parse_nums(t_u32 size, char **strs, t_vector *nums)
 {
 	t_u32	i;
+	t_i32	dup;
 
 	if (!ft_vector_alloc(nums, sizeof(t_i32), size))
 	{
@@ -102,6 +105,12 @@ bool	parse_nums(t_u32 size, char **strs, t_vector *nums)
 		if (!parse_chunk(ft_str(strs[i]), nums))
 			return (false);
 		i++;
+	}
+	if (array_has_dups(nums->array, &dup))
+	{
+		ft_oprintln(ft_stderr(),
+			"Parsing error: {i32} is present multiple times", dup);
+		return (false);
 	}
 	return (true);
 }
