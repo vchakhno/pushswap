@@ -6,7 +6,7 @@
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 11:50:32 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/29 23:26:17 by vchakhno         ###   ########.fr       */
+/*   Updated: 2023/10/30 05:01:10 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,15 @@ void	solver_push_b(t_solver *solver, t_array nums)
 
 void	solver_push_a(t_solver *solver)
 {
-	t_u32	tmp;
-	t_u32	i;
+	t_insertion		best;
+	t_u32			i;
 
 	while (solver->b.size)
 	{
-		tmp = rstack_pop(&solver->b);
-		stack_insert(&solver->a, tmp);
-		ft_oprintln(ft_stderr(), "---");
-		solver_print(*solver);
+		best = best_stack_insertion(solver->a, solver->b);
+		do_insertion(&solver->a, &solver->b, best);
 	}
+	solver_print(*solver);
 	i = 0;
 	if (solver->a.offset < solver->a.size / 2)
 	{
