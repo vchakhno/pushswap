@@ -6,7 +6,7 @@
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 09:49:44 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/30 16:09:33 by vchakhno         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:42:06 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,116 +65,4 @@ t_insertion	best_stack_insertion(t_rstack dst, t_rstack src)
 		i++;
 	}
 	return (best);
-}
-
-void	do_insertion_rr(t_rstack *dst, t_rstack *src, t_insertion insert)
-{
-	t_u32	i;
-	t_u32	rr;
-
-	rr = ft_u32_min(insert.a_rot, insert.b_rot);
-	i = 0;
-	while (i < rr)
-	{
-		rstack_rotate(dst);
-		rstack_rotate(src);
-		ft_println("rr");
-		i++;
-	}
-	i = 0;
-	while (i < insert.a_rot - rr)
-	{
-		rstack_rotate(dst);
-		ft_println("ra");
-		i++;
-	}
-	i = 0;
-	while (i < insert.b_rot - rr)
-	{
-		rstack_rotate(src);
-		ft_println("rb");
-		i++;
-	}
-}
-
-void	do_insertion_rrr(t_rstack *dst, t_rstack *src, t_insertion insert)
-{
-	t_u32	i;
-	t_u32	rrr;
-
-	rrr = ft_u32_min(insert.a_rot, insert.b_rot);
-	i = 0;
-	while (i < rrr)
-	{
-		rstack_rrotate(dst);
-		rstack_rrotate(src);
-		ft_println("rrr");
-		i++;
-	}
-	i = 0;
-	while (i < insert.a_rot - rrr)
-	{
-		rstack_rrotate(dst);
-		ft_println("rra");
-		i++;
-	}
-	i = 0;
-	while (i < insert.b_rot - rrr)
-	{
-		rstack_rrotate(src);
-		ft_println("rrb");
-		i++;
-	}
-}
-
-void	do_insertion_ra_rrb(t_rstack *dst, t_rstack *src, t_insertion insert)
-{
-	t_u32	i;
-
-	i = 0;
-	while (i < insert.a_rot)
-	{
-		rstack_rotate(dst);
-		ft_println("ra");
-		i++;
-	}
-	i = 0;
-	while (i < insert.b_rot)
-	{
-		rstack_rrotate(src);
-		ft_println("rrb");
-		i++;
-	}
-}
-
-void	do_insertion_rra_rb(t_rstack *dst, t_rstack *src, t_insertion insert)
-{
-	t_u32	i;
-
-	i = 0;
-	while (i < insert.a_rot)
-	{
-		rstack_rrotate(dst);
-		ft_println("rra");
-		i++;
-	}
-	i = 0;
-	while (i < insert.b_rot)
-	{
-		rstack_rotate(src);
-		ft_println("rb");
-		i++;
-	}
-}
-
-void	do_insertion(t_rstack *dst, t_rstack *src, t_insertion insert)
-{
-	if (insert.type == INSERT_RR)
-		do_insertion_rr(dst, src, insert);
-	else if (insert.type == INSERT_RRR)
-		do_insertion_rrr(dst, src, insert);
-	else if (insert.type == INSERT_RA_RRB)
-		do_insertion_ra_rrb(dst, src, insert);
-	else if (insert.type == INSERT_RRA_RB)
-		do_insertion_rra_rb(dst, src, insert);
 }

@@ -6,7 +6,7 @@
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 02:23:40 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/30 16:12:21 by vchakhno         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:43:22 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void			solver_free(t_solver solver);
 
 void			solver_push_b(t_solver *solver, t_array nums);
 void			solver_push_a(t_solver *solver);
-void			solver_print(t_solver solver);
 
 bool			rstack_alloc(t_rstack *stack, t_u32 capacity);
 void			rstack_free(t_rstack stack);
@@ -80,7 +79,6 @@ void			rstack_rrr(t_rstack *a, t_rstack *b);
 t_u32			rstack_max(t_rstack stack);
 t_u32			rstack_min(t_rstack stack);
 
-
 typedef enum e_insertion_type
 {
 	INSERT_RR,
@@ -98,7 +96,7 @@ typedef struct s_insertion
 }	t_insertion;
 
 t_insertion		best_stack_insertion(t_rstack dst, t_rstack src);
-void			do_insertion(t_rstack *dst, t_rstack *src, t_insertion insert);
+void			do_transfer(t_rstack *dst, t_rstack *src, t_insertion insert);
 
 bool			array_is_sorted(t_array nums);
 bool			array_has_dups(t_array nums, t_i32 *dup);

@@ -6,7 +6,7 @@
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 09:49:29 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/30 11:16:21 by vchakhno         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:47:47 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,29 +45,18 @@ void	solver_push_b(t_solver *solver, t_array nums)
 		}
 		i++;
 	}
-	solver_print(*solver);
 }
 
-void	solver_push_a(t_solver *solver)
+void	realign_a(t_solver *solver)
 {
-	t_insertion		best;
-	t_u32			i;
+	t_u32	i;
 
-	while (solver->b.size)
-	{
-		best = best_stack_insertion(solver->a, solver->b);
-		do_insertion(&solver->a, &solver->b, best);
-		rstack_push(&solver->a, rstack_pop(&solver->b));
-		ft_println("pa");
-	}
-	solver_print(*solver);
 	i = 0;
 	if (solver->a.offset < solver->a.size / 2)
 	{
 		while (solver->a.offset)
 		{
-			ft_println("ra");
-			rstack_rotate(&solver->a);
+			rstack_ra(&solver->a);
 			i++;
 		}
 	}
@@ -75,10 +64,21 @@ void	solver_push_a(t_solver *solver)
 	{
 		while (solver->a.offset)
 		{
-			ft_println("rra");
-			rstack_rrotate(&solver->a);
+			rstack_rra(&solver->a);
 			i++;
 		}
 	}
-	solver_print(*solver);
+}
+
+void	solver_push_a(t_solver *solver)
+{
+	t_insertion		best;
+
+	while (solver->b.size)
+	{
+		best = best_stack_insertion(solver->a, solver->b);
+		do_transfer(&solver->a, &solver->b, best);
+		rstack_pa(&solver->a, &solver->b);
+	}
+	realign_a(solver);
 }

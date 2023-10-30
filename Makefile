@@ -2,7 +2,7 @@
 # 	Makefile based on clemedon's Makefile tutorial							   #
 # **************************************************************************** #
 
-NAME		:= a.out
+NAME		:= pushswap
 
 # **************************************************************************** #
 # 	SOURCES																	   #
@@ -17,13 +17,13 @@ SRCS		:= \
 				lis_compute.c \
 				solver.c \
 				insertion.c \
+				transfer.c \
 				stack/alloc.c \
 				stack/manip.c \
 				stack/ps.c \
 				stack/r.c \
 				stack/rr.c \
 				stack/minmax.c \
-				debug.c \
 				phases.c \
 				small_sort.c \
 				array_checking.c
