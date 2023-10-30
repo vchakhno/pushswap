@@ -6,7 +6,7 @@
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 07:49:42 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/30 16:56:18 by vchakhno         ###   ########.fr       */
+/*   Updated: 2023/10/30 18:13:10 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	ft_i32_parse_digits(t_str str, t_i32 *val)
 	t_i32	num;
 	t_u32	i;
 
-	if (str.len > 10 || !ft_str_is_digit(str))
+	if (!str.len || str.len > 10 || !ft_str_is_digit(str))
 		return (false);
 	if (str.len == 10 && ft_str_compare_c_str(str, "2147483647") > 0)
 		return (false);
