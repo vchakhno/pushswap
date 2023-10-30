@@ -6,40 +6,45 @@
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 09:49:29 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/30 11:01:00 by vchakhno         ###   ########.fr       */
+/*   Updated: 2023/10/30 11:16:21 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+void	push_b_halfs(t_solver *solver, t_u32 half)
+{
+	t_u32	tmp;
+
+	tmp = rstack_pop(&solver->a);
+	rstack_push(&solver->b, tmp);
+	ft_println("pb");
+	if (tmp > half)
+	{
+		rstack_rotate(&solver->b);
+		ft_println("rb");
+	}
+}
+
 void	solver_push_b(t_solver *solver, t_array nums)
 {
-	t_insertion	transfer;
-	t_u32		i;
+	t_u32	i;
 
 	lis_compute(solver->lis, nums);
 	i = 0;
-	while (cheapest_chunk_transfer(solver, &transfer))
+	while (i < nums.size)
 	{
-		do_insertion(&solver->a, &solver->b, transfer);
-		rstack_push(&solver->b, rstack_pop(&solver->a));
-		ft_println("pb");
+		if (solver->lis.seq_mask[i])
+		{
+			rstack_rotate(&solver->a);
+			ft_println("ra");
+		}
+		else
+		{
+			push_b_halfs(solver, nums.size / 2);
+		}
 		i++;
 	}
-	// while (i < nums.size)
-	// {
-	// 	if (solver->lis.seq_mask[solver->a.elems[solver->a.top]])
-	// 	{
-	// 		rstack_rotate(&solver->a);
-	// 		ft_println("ra");
-	// 	}
-	// 	else
-	// 	{
-	// 		rstack_push(&solver->b, rstack_pop(&solver->a));
-	// 		ft_println("pb");
-	// 	}
-	// 	i++;
-	// }
 	solver_print(*solver);
 }
 
