@@ -6,7 +6,7 @@
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:45:16 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/29 11:36:13 by vchakhno         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:55:21 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ bool	parse_nums_packed(t_u32 size, char **strs, t_vector *packed)
 	if (!ft_vector_alloc(packed, sizeof(t_u32), nums.size))
 	{
 		ft_vector_free(nums);
-		ft_oprintln(ft_stderr(), "Internal error: Not enough memory");
 		return (false);
 	}
 	i = 0;

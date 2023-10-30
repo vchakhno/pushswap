@@ -6,7 +6,7 @@
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 07:49:42 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/30 09:43:38 by vchakhno         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:56:18 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,10 @@ bool	parse_chunk(t_str chunk, t_vector *nums)
 		if (!ft_i32_from_str(word, &num))
 		{
 			ft_vector_free(*nums);
-			ft_oprintln(ft_stderr(),
-				"Parsing error: \"{str}\" is not a valid number", word);
 			return (false);
 		}
 		if (!ft_vector_push(nums, &num))
-		{
-			ft_oprintln(ft_stderr(), "Internal error: Not enough memory");
 			return (false);
-		}
 	}
 	return (true);
 }
@@ -95,10 +90,7 @@ bool	parse_nums(t_u32 size, char **strs, t_vector *nums)
 	t_i32	dup;
 
 	if (!ft_vector_alloc(nums, sizeof(t_i32), size))
-	{
-		ft_oprintln(ft_stderr(), "Internal error: Not enough memory");
 		return (false);
-	}
 	i = 0;
 	while (i < size)
 	{
@@ -106,11 +98,5 @@ bool	parse_nums(t_u32 size, char **strs, t_vector *nums)
 			return (false);
 		i++;
 	}
-	if (array_has_dups(nums->array, &dup))
-	{
-		ft_oprintln(ft_stderr(),
-			"Parsing error: {i32} is present multiple times", dup);
-		return (false);
-	}
-	return (true);
+	return (!array_has_dups(nums->array, &dup));
 }
