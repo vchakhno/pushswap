@@ -1,52 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   array_validation.c                                 :+:      :+:    :+:   */
+/*   minmax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/30 09:34:26 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/30 09:40:24 by vchakhno         ###   ########.fr       */
+/*   Created: 2023/10/30 16:04:51 by vchakhno          #+#    #+#             */
+/*   Updated: 2023/10/30 16:09:42 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool	array_is_sorted(t_array nums)
+t_u32	rstack_min(t_rstack stack)
 {
+	t_u32	min;
 	t_u32	i;
 
-	if (nums.size <= 1)
-		return (true);
-	i = 0;
-	while (i < nums.size - 1)
+	min = rstack_get(stack, 0);
+	i = 1;
+	while (i < stack.size)
 	{
-		if (((t_u32 *)nums.elems)[i] > ((t_u32 *)nums.elems)[i + 1])
-			return (false);
+		if (rstack_get(stack, i) < min)
+			min = rstack_get(stack, i);
 		i++;
 	}
-	return (true);
+	return (min);
 }
 
-bool	array_has_dups(t_array nums, t_i32 *dup)
+t_u32	rstack_max(t_rstack stack)
 {
+	t_u32	max;
 	t_u32	i;
-	t_u32	j;
 
-	i = 0;
-	while (i < nums.size)
+	max = rstack_get(stack, 0);
+	i = 1;
+	while (i < stack.size)
 	{
-		j = 0;
-		while (j < i)
-		{
-			if (((t_i32 *)nums.elems)[j] == ((t_i32 *)nums.elems)[i])
-			{
-				*dup = ((t_i32 *)nums.elems)[j];
-				return (true);
-			}
-			j++;
-		}
+		if (rstack_get(stack, i) > max)
+			max = rstack_get(stack, i);
 		i++;
 	}
-	return (false);
+	return (max);
 }

@@ -6,7 +6,7 @@
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 09:49:44 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/30 10:17:23 by vchakhno         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:09:33 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_insertion	best_stack_insertion(t_rstack dst, t_rstack src)
 	while (i < src.size)
 	{
 		new = best_elem_insertion(dst.size,
-				insert_index(dst, src.elems[(src.top + i) % src.capacity]), src.size, i);
+				insert_index(dst, rstack_get(src, i)), src.size, i);
 		if (new.cost < best.cost)
 			best = new;
 		i++;
@@ -178,36 +178,3 @@ void	do_insertion(t_rstack *dst, t_rstack *src, t_insertion insert)
 	else if (insert.type == INSERT_RRA_RB)
 		do_insertion_rra_rb(dst, src, insert);
 }
-
-void	stack_insert(t_rstack *stack, t_u32 value)
-{
-	t_u32	dest;
-	t_u32	i;
-
-	dest = insert_index(*stack, value);
-	i = 0;
-	if (dest < stack->size / 2)
-	{
-		while (i < dest)
-		{
-			ft_println("ra");
-			rstack_rotate(stack);
-			i++;
-		}
-	}
-	else
-	{
-		while (i < stack->size - dest)
-		{
-			ft_println("rra");
-			rstack_rrotate(stack);
-			i++;
-		}
-	}
-	ft_println("pa");
-	rstack_push(stack, value);
-}
-
-// Find the insertion index:
-// Ugly function
-// Save offset

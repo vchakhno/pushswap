@@ -17,10 +17,16 @@ SRCS		:= \
 				lis_compute.c \
 				solver.c \
 				insertion.c \
-				stack.c \
+				stack/alloc.c \
+				stack/manip.c \
+				stack/ps.c \
+				stack/r.c \
+				stack/rr.c \
+				stack/minmax.c \
 				debug.c \
 				phases.c \
-				array_validation.c
+				small_sort.c \
+				array_checking.c
 SRCS		:= $(addprefix $(SRC_DIR)/,$(SRCS))
 
 INCS		:=	include

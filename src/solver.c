@@ -6,7 +6,7 @@
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 11:50:32 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/30 09:49:25 by vchakhno         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:13:29 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,13 @@ void	solver_run(t_solver solver, t_array nums)
 	if (array_is_sorted(nums))
 		return ;
 	solver_init_stacks(&solver, nums);
-	solver_push_b(&solver, nums);
-	solver_push_a(&solver);
+	if (nums.size <= 5)
+		small_sort(&solver.a, &solver.b);
+	else
+	{
+		solver_push_b(&solver, nums);
+		solver_push_a(&solver);
+	}
 }
 
 void	solver_free(t_solver solver)

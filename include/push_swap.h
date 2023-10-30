@@ -6,7 +6,7 @@
 /*   By: vchakhno <vchakhno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 02:23:40 by vchakhno          #+#    #+#             */
-/*   Updated: 2023/10/30 10:51:23 by vchakhno         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:12:21 by vchakhno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,28 @@ void			solver_print(t_solver solver);
 bool			rstack_alloc(t_rstack *stack, t_u32 capacity);
 void			rstack_free(t_rstack stack);
 
+t_u32			rstack_get(t_rstack stack, t_i32 i);
 t_u32			rstack_get_cyclic(t_rstack stack, t_i32 i);
 void			rstack_rotate(t_rstack *stack);
 void			rstack_rrotate(t_rstack *stack);
 void			rstack_push(t_rstack *stack, t_u32 value);
 t_u32			rstack_pop(t_rstack *stack);
 
-void			stack_insert(t_rstack *stack, t_u32 value);
+void			rstack_pa(t_rstack *a, t_rstack *b);
+void			rstack_pb(t_rstack *a, t_rstack *b);
+void			rstack_sa(t_rstack *a);
+void			rstack_sb(t_rstack *b);
+
+void			rstack_ra(t_rstack *a);
+void			rstack_rb(t_rstack *b);
+void			rstack_rr(t_rstack *a, t_rstack *b);
+
+void			rstack_rra(t_rstack *a);
+void			rstack_rrb(t_rstack *b);
+void			rstack_rrr(t_rstack *a, t_rstack *b);
+t_u32			rstack_max(t_rstack stack);
+t_u32			rstack_min(t_rstack stack);
+
 
 typedef enum e_insertion_type
 {
@@ -85,20 +100,9 @@ typedef struct s_insertion
 t_insertion		best_stack_insertion(t_rstack dst, t_rstack src);
 void			do_insertion(t_rstack *dst, t_rstack *src, t_insertion insert);
 
-typedef struct s_chunk_entry
-{
-	t_u32	high;
-	t_u32	low;
-}	t_chunk_entry;
-
-t_chunk_entry	find_chunk_entry(t_rstack stack, t_u32 value);
-bool			cheapest_chunk_transfer(
-					t_solver *solver, t_insertion *cheapest);
-t_insertion		optimal_chunk_transfer(
-					t_u32 a_size, t_u32 a_index,
-					t_u32 b_size, t_chunk_entry b_entry);
-
 bool			array_is_sorted(t_array nums);
 bool			array_has_dups(t_array nums, t_i32 *dup);
+
+void			small_sort(t_rstack *a, t_rstack *b);
 
 #endif
